@@ -19,13 +19,6 @@ test('deve consultar um pedido aprovado', async ({ page }) => {
   await page.getByRole('button', { name: 'Buscar Pedido' }).click()
 
   // Assert
-
-  const containerPedido = page.getByRole('paragraph')
-    .filter({ hasText: /^Pedido$/ })
-    .locator('..') //Sobe para o elemento pai (a div que agrupa ambos)
-
-  await expect(containerPedido).toContainText(order, { timeout: 10_000 })
-
-  await expect(page.getByText('APROVADO')).toBeVisible()
+  await expect(page.getByTestId('order-result-'+ order)).toContainText(order+'APROVADO')
 
 })
