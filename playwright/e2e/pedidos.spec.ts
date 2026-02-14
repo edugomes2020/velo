@@ -25,6 +25,5 @@ test('deve consultar um pedido aprovado', async ({ page }) => {
 
     await expect(containerPedido).toContainText('VLO-1S82UG')
 
-    await page.getByText('APROVADO').toBeVisible()
-
+    await expect(page.getByText('APROVADO')).toBeVisible()
 })
