@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test"
 
-import { generateOrderCode } from "../support/helpers"
+import { consultarPedido, generateOrderCode } from "../support/helpers"
 
 /// AAA - Arrange, Act, Assert
 
@@ -31,8 +31,7 @@ test.describe("Consulta de Pedido", () => {
     }
 
     // Act
-    await page.getByRole("textbox", { name: "Número do Pedido" }).fill(order.number)
-    await page.getByRole("button", { name: "Buscar Pedido" }).click()
+    await consultarPedido(page, order.number)
 
     // Assert
     await expect(page.getByTestId(`order-result-${order.number}`))
@@ -91,8 +90,7 @@ test.describe("Consulta de Pedido", () => {
     }
 
     // Act
-    await page.getByRole("textbox", { name: "Número do Pedido" }).fill(order.number)
-    await page.getByRole("button", { name: "Buscar Pedido" }).click()
+    await consultarPedido(page, order.number)
 
     // Assert
     await expect(page.getByTestId(`order-result-${order.number}`))
@@ -151,8 +149,7 @@ test.describe("Consulta de Pedido", () => {
     }
 
     // Act
-    await page.getByRole("textbox", { name: "Número do Pedido" }).fill(order.number)
-    await page.getByRole("button", { name: "Buscar Pedido" }).click()
+    await consultarPedido(page, order.number)
 
     // Assert
     await expect(page.getByTestId(`order-result-${order.number}`))

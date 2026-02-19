@@ -1,3 +1,5 @@
+import { Page } from '@playwright/test'
+
 export function generateOrderCode() {
     const prefix = 'VLO-'
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -10,3 +12,10 @@ export function generateOrderCode() {
   
     return prefix + randomPart
   }
+
+
+
+export async function consultarPedido(page: Page, orderNumber: string) {
+  await page.getByRole('textbox', { name: 'Número do Pedido' }).fill(orderNumber)
+  await page.getByRole('button', { name: 'Buscar Pedido' }).click()
+}
