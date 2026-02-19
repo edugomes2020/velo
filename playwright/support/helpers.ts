@@ -14,7 +14,6 @@ export function generateOrderCode() {
   }
 
 
-
 export async function consultarPedido(page: Page, orderNumber: string) {
   await page.getByRole('textbox', { name: 'Número do Pedido' }).fill(orderNumber)
   await page.getByRole('button', { name: 'Buscar Pedido' }).click()

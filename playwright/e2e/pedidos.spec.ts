@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test"
 
-import { consultarPedido, generateOrderCode } from "../support/helpers"
+import { generateOrderCode } from "../support/helpers"
+import { OrderLockupPage } from "../support/pages/OrderLockupPage"
 
 /// AAA - Arrange, Act, Assert
 
@@ -30,8 +31,10 @@ test.describe("Consulta de Pedido", () => {
       payment: 'À Vista'
     }
 
+    const orderLockupPage = new OrderLockupPage(page)
+
     // Act
-    await consultarPedido(page, order.number)
+    await orderLockupPage.searchOrder(order.number)
 
     // Assert
     await expect(page.getByTestId(`order-result-${order.number}`))
@@ -89,8 +92,10 @@ test.describe("Consulta de Pedido", () => {
       payment: 'À Vista'
     }
 
+    const orderLockupPage = new OrderLockupPage(page)
+
     // Act
-    await consultarPedido(page, order.number)
+    await orderLockupPage.searchOrder(order.number)
 
     // Assert
     await expect(page.getByTestId(`order-result-${order.number}`))
@@ -148,8 +153,10 @@ test.describe("Consulta de Pedido", () => {
       payment: 'À Vista'
     }
 
+    const orderLockupPage = new OrderLockupPage(page)
+
     // Act
-    await consultarPedido(page, order.number)
+    await orderLockupPage.searchOrder(order.number)
 
     // Assert
     await expect(page.getByTestId(`order-result-${order.number}`))
@@ -192,15 +199,15 @@ test.describe("Consulta de Pedido", () => {
       await expect(statusIcon).toHaveClass(/lucide-clock/)
   })
 
-  test("deve exibir mensagem quando o pedido não é encontrado", async ({
-    page,
-  }) => {
+  test("deve exibir mensagem quando o pedido não é encontrado", async ({ page }) => {
     // Test Data
     const order = generateOrderCode()
 
+    const orderLockupPage = new OrderLockupPage(page)
+
     // Act
-    await page.getByRole("textbox", { name: "Número do Pedido" }).fill(order)
-    await page.getByRole("button", { name: "Buscar Pedido" }).click()
+    await orderLockupPage.searchOrder(order)
+
 
     // Assert
     await expect(page.locator("#root")).toMatchAriaSnapshot(`
